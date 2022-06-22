@@ -1,6 +1,5 @@
-package iexam.studyin.application.exam.dto.response;
+package iexam.studyin.application.favorite.controller.dto;
 
-import iexam.studyin.application.exam.dto.FavoriteExamDto;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -17,8 +16,5 @@ public class MyFavoriteExamResponse {
 
     @Builder.Default
     private List<FavoriteExamDto> exams = new LinkedList<>();
-
-
-
 
 }

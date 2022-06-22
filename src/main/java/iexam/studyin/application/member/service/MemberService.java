@@ -42,6 +42,8 @@ public class MemberService {
                 .password(encode)
                 .creationDate(now)
                 .modifyDate(now)
+                .organization(memberDto.getOrganization())
+                .nickName(memberDto.getNickName())
                 .num(num)
                 .build();
 

@@ -1,6 +1,9 @@
 package iexam.studyin.application.exam.service;
 
-import iexam.studyin.application.exam.controller.ExamDto;
+import iexam.studyin.application.exam.controller.dto.ExamDto;
+import iexam.studyin.application.exam.controller.dto.OneExamDto;
+import iexam.studyin.application.exam.controller.dto.QOrA;
+import iexam.studyin.application.exam.controller.dto.QuestionDto;
 import iexam.studyin.application.exam.domain.Exam;
 import iexam.studyin.application.exam.domain.Question;
 import iexam.studyin.application.exam.repository.ExamRepository;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -41,17 +45,16 @@ public class ExamService {
                 .member(member)
                 .build();
 
-        List<String> questionImage = imageStore.storeFiles(examDto.getQuestionImage());
-        List<String> answerImage = imageStore.storeFiles(examDto.getAnswerImage());
-        List<String> questionText = examDto.getQuestion();
-        List<String> answerText = examDto.getAnswer();
+        List<QuestionDto> questionDtos = examDto.getQuestionDtos();
 
-        for (int i=0; i<examDto.getQuestion().size(); i++) {
+        for (QuestionDto questionDto : questionDtos) {
+            String questionImage = imageStore.storeFile(questionDto.getQuestionImage());
+            String answerImage = imageStore.storeFile(questionDto.getAnswerImage());
             Question question = Question.builder()
-                    .questionText(questionText.get(i))
-                    .questionImage(questionImage.size() > i ? questionImage.get(i) : null)
-                    .answerText(answerText.size() > i ? answerText.get(i) : null)
-                    .answerImage(answerImage.size() > i ? answerImage.get(i) : null)
+                    .questionText(questionDto.getQuestion())
+                    .questionImage(questionImage)
+                    .answerText(questionDto.getAnswer())
+                    .answerImage(answerImage)
                     .build();
 
             exam.addQuestion(question);
@@ -64,5 +67,33 @@ public class ExamService {
         Member member = memberRepository.findByEmail(principal.getUsername())
                 .orElseThrow(RuntimeException::new);
         return member;
+    }
+
+    public OneExamDto findByExamId(Long examId) {
+        Exam exam = examRepository.findById(examId)
+                .orElseThrow(RuntimeException::new);
+        List<QOrA> qOrAS = new ArrayList<>();
+        for (Question question : exam.getQuestions()) {
+            QOrA q = QOrA.builder()
+                    .QOrA(question.getQuestionText())
+                    .QOrAImage(question.getQuestionImage())
+                    .build();
+            qOrAS.add(q);
+            QOrA a = QOrA.builder()
+                    .QOrA(question.getAnswerText())
+                    .QOrAImage(question.getAnswerImage())
+                    .build();
+            qOrAS.add(a);
+        }
+
+        OneExamDto oneExamDto = OneExamDto.builder()
+                .questions(qOrAS)
+                .like(exam.getFavoriteList().size())
+                .num(exam.getMember().getNum())
+                .nickName(exam.getMember().getNickName())
+                .title(exam.getTitle())
+                .build();
+
+        return oneExamDto;
     }
 }

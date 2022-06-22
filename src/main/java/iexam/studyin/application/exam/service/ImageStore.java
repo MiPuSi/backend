@@ -31,11 +31,8 @@ public class ImageStore {
         return results;
     }
 
-    private String storeFile(MultipartFile multipartFile) throws IOException {
-        if (multipartFile.isEmpty()) return null;
-
-        System.out.println("multipartFile = " + multipartFile.getOriginalFilename());
-
+    public String storeFile(MultipartFile multipartFile) throws IOException {
+        if (multipartFile == null || multipartFile.isEmpty()) return null;
 
         String storeFileName = createStoreFileName(multipartFile.getOriginalFilename());
         multipartFile.transferTo(new File(getFullPath(storeFileName)));

@@ -1,11 +1,8 @@
-package iexam.studyin.application.exam.dto;
+package iexam.studyin.application.favorite.controller.dto;
 
-import iexam.studyin.application.exam.controller.ExamDto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
 
 @Data
 public class FavoriteExamDto {

@@ -1,4 +1,4 @@
-package iexam.studyin.application.exam.domain;
+package iexam.studyin.application.favorite.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;

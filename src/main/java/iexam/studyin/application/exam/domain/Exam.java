@@ -1,5 +1,6 @@
 package iexam.studyin.application.exam.domain;
 
+import iexam.studyin.application.favorite.domain.Favorite;
 import iexam.studyin.application.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -52,5 +53,9 @@ public class Exam {
 
     public void addQuestion(Question question) {
         this.questions.add(question);
+    }
+
+    public void addFavorite(Favorite favorite) {
+        this.favoriteList.add(favorite);
     }
 }
