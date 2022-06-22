@@ -127,10 +127,27 @@ public class ExamService {
 
         PageResponse examSearchList = PageResponse.builder()
                 .exams(examsContent)
-                .currentPage(examByTitle.getPageable().getPageNumber()+1)
+                .currentPage(examByTitle.getPageable().getPageNumber() + 1)
                 .totalPage(examByTitle.getTotalPages())
                 .total(examByTitle.getNumberOfElements())
                 .build();
         return examSearchList;
+    }
+
+    public PageResponse findExamsByLikes() {
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        List<Exam> examsOrderByLike = examRepository.findExamsOrderByLike(pageRequest);
+        List<ExamResponse> examResponses = examsOrderByLike.stream()
+                .map(e -> new ExamResponse(e.getMember().getNum(),
+                        e.getTitle(), e.getFavoriteList().size(), e.getMember().getNickName()))
+                .collect(Collectors.toList());
+
+        PageResponse pageResponse = PageResponse.builder()
+                .total(examsOrderByLike.size())
+                .totalPage(1)
+                .currentPage(1)
+                .exams(examResponses)
+                .build();
+        return pageResponse;
     }
 }

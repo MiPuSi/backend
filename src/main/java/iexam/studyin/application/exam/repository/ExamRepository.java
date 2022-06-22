@@ -27,4 +27,10 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
     countQuery = "select count(e) from Exam e " +
             "where e.title like %:t%")
     Page<Exam> findExamByTitle(@Param("t") String title, Pageable pageable);
+
+    @Query("select e from Exam e " +
+            "left join fetch e.member m " +
+            "left join fetch e.favoriteList fl " +
+            "order by size(e.favoriteList) desc ")
+    List<Exam> findExamsOrderByLike(Pageable pageable);
 }

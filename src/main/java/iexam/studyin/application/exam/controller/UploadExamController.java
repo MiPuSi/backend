@@ -67,4 +67,12 @@ public class UploadExamController {
         PageResponse pageResponse = uploadExamService.findExamByKeyWord(title, page, 10);
         return new ResponseEntity<>(pageResponse,HttpStatus.OK);
     }
+
+    //PageResponse 재탕
+    //좋아요순
+    @GetMapping("/api/exam/ranks")
+    public ResponseEntity<PageResponse> examOrderByLike(){
+        PageResponse examsByLikes = uploadExamService.findExamsByLikes();
+        return new ResponseEntity<>(examsByLikes,HttpStatus.OK);
+    }
 }
