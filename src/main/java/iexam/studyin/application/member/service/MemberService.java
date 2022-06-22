@@ -1,14 +1,19 @@
 package iexam.studyin.application.member.service;
 
+import iexam.studyin.application.member.controller.dto.MailUtils;
 import iexam.studyin.application.member.controller.dto.MemberDto;
 import iexam.studyin.application.member.domain.Member;
 import iexam.studyin.application.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +23,22 @@ public class MemberService {
 
     @Transactional
     public void signUp(MemberDto memberDto) {
+        LocalDateTime now = LocalDateTime.now();
+        String num = now.format(DateTimeFormatter.ofPattern("yyyyMMdd")).substring(2);
+        while (true) {
+            String rand = MailUtils.getKey(3);
+            if (memberRepository.findByNum(num + rand).isEmpty()) {
+                num += rand;
+                break;
+            }
+        }
+
         Member member = Member.builder()
                 .email(memberDto.getEmail())
                 .password(memberDto.getPassword())
-                .creationDate(LocalDateTime.now())
-                .modifyDate(LocalDateTime.now())
+                .creationDate(now)
+                .modifyDate(now)
+                .num(num)
                 .build();
 
         memberRepository.save(member);

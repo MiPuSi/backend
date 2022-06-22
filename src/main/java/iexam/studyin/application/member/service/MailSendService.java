@@ -14,24 +14,10 @@ public class MailSendService {
 
     private final JavaMailSender mailSender;
 
-    //인증키 생성
-    private String getKey(int size) {
-        Random random = new Random();
-        StringBuffer buffer = new StringBuffer();
-        int num = 0;
-
-        while(buffer.length() < size) {
-            num = random.nextInt(10);
-            buffer.append(num);
-        }
-
-        return buffer.toString();
-    }
-
     public String sendAuthMail(String email) throws MessagingException {
 
         //6자리 난수 인증번호 생성
-        String authKey = getKey(6);
+        String authKey = MailUtils.getKey(6);
 
         //인증메일 보내기
         MailUtils sendMail = new MailUtils(mailSender);
