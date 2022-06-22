@@ -33,6 +33,9 @@ public class Member {
     @Column(name = "member_nick_name")
     private String nickName;
 
+    @Column(name = "member_organization")
+    private String organization;
+
     @Column(name = "member_create")
     private LocalDateTime creationDate;
 
@@ -46,13 +49,14 @@ public class Member {
     private List<Favorite> favorites = new ArrayList<>();
 
     @Builder
-    public Member(String email, String password, String num, LocalDateTime creationDate, LocalDateTime modifyDate, String nickName) {
+    public Member(String organization, String email, String password, String num, LocalDateTime creationDate, LocalDateTime modifyDate, String nickName) {
         this.email = email;
         this.password = password;
         this.num = num;
         this.creationDate = creationDate;
         this.modifyDate = modifyDate;
         this.nickName = nickName;
+        this.organization = organization;
     }
 
     public void addFavorite(Favorite favorite) {
