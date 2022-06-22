@@ -1,0 +1,3 @@
+already:
+  memberDto:
+    email: 이미 존재한 이메일입니다.
