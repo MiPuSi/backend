@@ -12,6 +12,9 @@ public class MemberDto {
     @Email(message = "이메일 형식이 아닙니다.")
     private String email;
 
+    @NotBlank(message = "빈칸은 허용되지 않습니다.")
     private String password;
+
+    @NotBlank(message = "빈칸은 허용되지 않습니다.")
     private String authKey;
 }

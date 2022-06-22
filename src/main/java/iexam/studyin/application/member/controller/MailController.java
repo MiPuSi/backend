@@ -36,10 +36,8 @@ public class MailController {
             return ;
         }
 
-        // 원래 로직 - 멤버 DB로 미리 회원을 저장
         authKeyRepository.deleteAuth(memberDto.getEmail());
 
-        //임의의 authKey 생성 & 이메일 발송
         String authKey = mss.sendAuthMail(memberDto.getEmail());
         memberDto.setAuthKey(authKey);
 
