@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -36,6 +37,9 @@ public class Exam {
 
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "exam")
+    private List<Favorite> favoriteList = new LinkedList<>();
 
     @Builder
     public Exam(String title, LocalDateTime create, LocalDateTime modify,Member member) {
