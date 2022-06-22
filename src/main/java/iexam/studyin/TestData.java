@@ -55,6 +55,7 @@ public class TestData {
                     .title("문제" + i)
                     .build();
             examRepository.save(build);
+
         }
     }
 }

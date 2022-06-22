@@ -1,9 +1,6 @@
 package iexam.studyin.application.exam.controller;
 
-import iexam.studyin.application.exam.controller.dto.ExamDto;
-import iexam.studyin.application.exam.controller.dto.ExamResponse;
-import iexam.studyin.application.exam.controller.dto.OneExamDto;
-import iexam.studyin.application.exam.controller.dto.QuestionDto;
+import iexam.studyin.application.exam.controller.dto.*;
 import iexam.studyin.application.exam.service.ExamService;
 import iexam.studyin.application.favorite.controller.dto.FavoriteExamDto;
 import iexam.studyin.application.favorite.controller.dto.MyFavoriteExamResponse;
@@ -62,12 +59,12 @@ public class UploadExamController {
     //검색값 없으면 전체 시험지 다 보여줌
     //검색값 있으면 해당하는 시험지만 보여줌/ 페이지당 10개
     @GetMapping("/api/exam")
-    public Page<ExamResponse> examSearch(@RequestParam(value = "title", required = false) String title,
+    public ResponseEntity<PageResponse> examSearch(@RequestParam(value = "title", required = false) String title,
                                          Pageable pageable) {
        // log.info("search = {} ",title);
         if(title==null) title="";
         int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber() - 1;
-        Page<ExamResponse> examByKeyWord = uploadExamService.findExamByKeyWord(title, page, 10);
-        return examByKeyWord;
+        PageResponse pageResponse = uploadExamService.findExamByKeyWord(title, page, 10);
+        return new ResponseEntity<>(pageResponse,HttpStatus.OK);
     }
 }

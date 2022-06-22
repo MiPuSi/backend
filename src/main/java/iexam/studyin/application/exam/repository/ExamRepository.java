@@ -20,7 +20,6 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
             "f.exam = e.id")
     List<Exam> findFavoriteExam(@Param("mid") Long id);
 
-
     @Query(value = "select e from Exam e " +
             "left join fetch e.member m " +
             "left join fetch e.favoriteList fl " +

@@ -116,14 +116,21 @@ public class ExamService {
     }
 
 
-    public Page<ExamResponse> findExamByKeyWord(String title, int page, int size) {
+    public PageResponse findExamByKeyWord(String title, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Exam> examByTitle = examRepository.findExamByTitle(title, pageRequest);
-            Page<ExamResponse> examSearchList =
-                    examByTitle.map(e -> new ExamResponse(e.getMember().getNum()
-                                    , e.getTitle()
-                                    , e.getFavoriteList().size(),
-                                    e.getMember().getNickName()));
-            return examSearchList;
+
+        List<Exam> content = examByTitle.getContent();
+        List<ExamResponse> examsContent = content.stream().map(c -> new ExamResponse(c.getMember().getNum(), c.getTitle(), c.getFavoriteList().size(),
+                c.getMember().getNickName())).collect(Collectors.toList());
+
+
+        PageResponse examSearchList = PageResponse.builder()
+                .exams(examsContent)
+                .currentPage(examByTitle.getPageable().getPageNumber()+1)
+                .totalPage(examByTitle.getTotalPages())
+                .total(examByTitle.getNumberOfElements())
+                .build();
+        return examSearchList;
     }
 }
