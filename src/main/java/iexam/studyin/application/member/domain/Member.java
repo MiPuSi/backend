@@ -1,9 +1,12 @@
 package iexam.studyin.application.member.domain;
 
+import iexam.studyin.application.exam.domain.Exam;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,6 +34,9 @@ public class Member {
 
     @Column(name = "member_modify")
     private LocalDateTime modifyDate;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Exam> exams = new ArrayList<>();
 
     @Builder
     public Member(String email, String password, String num, LocalDateTime creationDate, LocalDateTime modifyDate) {

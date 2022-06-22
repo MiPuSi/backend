@@ -8,6 +8,8 @@ import iexam.studyin.application.member.service.MailSendService;
 import iexam.studyin.core.validation.AddMemberValidation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,13 +29,13 @@ public class MailController {
     private final AddMemberValidation validation;
 
     @PostMapping("/member/signUp/email")
-    public void signUp(@Valid MemberDto memberDto, BindingResult bindingResult) throws JsonProcessingException, MessagingException {
+    public ResponseEntity signUp(@Valid MemberDto memberDto, BindingResult bindingResult) throws JsonProcessingException, MessagingException {
 
         validation.validate(memberDto, bindingResult);
 
         if (bindingResult.hasErrors()) {
             log.error("errors={}", bindingResult);
-            return ;
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
         authKeyRepository.deleteAuth(memberDto.getEmail());
@@ -42,6 +44,7 @@ public class MailController {
         memberDto.setAuthKey(authKey);
 
         authKeyRepository.saveAuth(memberDto);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("member/signUpConfirm")
