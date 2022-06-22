@@ -47,7 +47,7 @@ public class TestData {
         memberRepository.save(tempMember);
 
 
-        for(int i=0;i<5;i++){
+        for(int i=0;i<12;i++){
             Exam build = Exam.builder()
                     .create(LocalDateTime.now())
                     .modify(LocalDateTime.now())

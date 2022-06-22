@@ -1,9 +1,6 @@
 package iexam.studyin.application.exam.service;
 
-import iexam.studyin.application.exam.controller.dto.ExamDto;
-import iexam.studyin.application.exam.controller.dto.OneExamDto;
-import iexam.studyin.application.exam.controller.dto.QOrA;
-import iexam.studyin.application.exam.controller.dto.QuestionDto;
+import iexam.studyin.application.exam.controller.dto.*;
 import iexam.studyin.application.exam.domain.Exam;
 import iexam.studyin.application.exam.domain.Question;
 import iexam.studyin.application.exam.repository.ExamRepository;
@@ -13,6 +10,9 @@ import iexam.studyin.application.member.repository.MemberRepository;
 import iexam.studyin.core.config.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,15 +103,27 @@ public class ExamService {
 
     public List<FavoriteExamDto> findMyExams(String email) {
         Optional<Member> memberOpt = memberRepository.findAllExamsByEmail(email);
-        if(memberOpt.isEmpty()) throw new BadCredentialsException("User Not Found");
+        if (memberOpt.isEmpty()) throw new BadCredentialsException("User Not Found");
         Member member = memberOpt.get();
-        if(member.getExams() == null) return null;
-        else{
+        if (member.getExams() == null) return null;
+        else {
             List<Exam> exams = member.getExams();
             List<FavoriteExamDto> examList = exams.stream()
                     .map(e -> new FavoriteExamDto(e.getId(), e.getTitle(), e.getCreate(), e.getMember().getNickName()))
                     .collect(Collectors.toList());
             return examList;
         }
+    }
+
+
+    public Page<ExamResponse> findExamByKeyWord(String title, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Exam> examByTitle = examRepository.findExamByTitle(title, pageRequest);
+            Page<ExamResponse> examSearchList =
+                    examByTitle.map(e -> new ExamResponse(e.getMember().getNum()
+                                    , e.getTitle()
+                                    , e.getFavoriteList().size(),
+                                    e.getMember().getNickName()));
+            return examSearchList;
     }
 }
