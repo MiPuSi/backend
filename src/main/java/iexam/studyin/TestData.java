@@ -3,6 +3,7 @@ package iexam.studyin;
 import iexam.studyin.application.member.domain.Member;
 import iexam.studyin.application.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
