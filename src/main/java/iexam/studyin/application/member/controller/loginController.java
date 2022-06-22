@@ -29,7 +29,7 @@ public class loginController {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/member/login")
-    public ResponseEntity<String> login(LoginDto loginDto){
+    public ResponseEntity<JwtResponse> login(LoginDto loginDto){
         log.info("input = {}",loginDto);
 
         try{
@@ -42,12 +42,11 @@ public class loginController {
         final PrincipalDetails principalDetails = (PrincipalDetails) principalDetailsService.loadUserByUsername(loginDto.getEmail());
         final String jwt = jwtUtils.generateToken(principalDetails);
 
-//        JwtResponse jwtResponse = JwtResponse.builder()
-//                .token(jwt)
-//                .email(principalDetails.getUsername())
-//                .build();
+        JwtResponse jwtResponse = JwtResponse.builder()
+                .token(jwt)
+                .build();
 
-        return new ResponseEntity<>(jwt, HttpStatus.OK);
+        return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
     }
 
     @GetMapping("/test")
