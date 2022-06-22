@@ -4,7 +4,8 @@ spring:
     port: 6379
   profiles:
     include:
-      - local
+#      - local
       - mail
+      - cloud
 server:
   port: 8000
