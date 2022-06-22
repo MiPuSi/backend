@@ -7,11 +7,13 @@ import iexam.studyin.application.exam.controller.dto.QuestionDto;
 import iexam.studyin.application.exam.domain.Exam;
 import iexam.studyin.application.exam.domain.Question;
 import iexam.studyin.application.exam.repository.ExamRepository;
+import iexam.studyin.application.favorite.controller.dto.FavoriteExamDto;
 import iexam.studyin.application.member.domain.Member;
 import iexam.studyin.application.member.repository.MemberRepository;
 import iexam.studyin.core.config.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -95,5 +99,19 @@ public class ExamService {
                 .build();
 
         return oneExamDto;
+    }
+
+    public List<FavoriteExamDto> findMyExams(String email) {
+        Optional<Member> memberOpt = memberRepository.findAllExamsByEmail(email);
+        if(memberOpt.isEmpty()) throw new BadCredentialsException("User Not Found");
+        Member member = memberOpt.get();
+        if(member.getExams() == null) return null;
+        else{
+            List<Exam> exams = member.getExams();
+            List<FavoriteExamDto> examList = exams.stream()
+                    .map(e -> new FavoriteExamDto(e.getId(), e.getTitle(), e.getCreate(), e.getMember().getNickName()))
+                    .collect(Collectors.toList());
+            return examList;
+        }
     }
 }

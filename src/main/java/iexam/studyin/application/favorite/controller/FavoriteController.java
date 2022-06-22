@@ -31,14 +31,13 @@ public class FavoriteController {
         return ResponseEntity.ok("Ok");
     }
 
-    //TODO EXAM 관련 주석처리 되어있습니다.
     @GetMapping("/myExam/favorite")
     public ResponseEntity<MyFavoriteExamResponse> myFavoriteExam(@AuthenticationPrincipal PrincipalDetails user){
         List<Exam> favoriteExam = favoriteService.findFavoriteExam(user.getUsername());
         List<FavoriteExamDto> favoriteExamDtos
                 = favoriteExam
                 .stream()
-                .map(f -> new FavoriteExamDto(f.getId(),f.getTitle(),f.getCreate(),f.getMember().getEmail()))
+                .map(f -> new FavoriteExamDto(f.getId(),f.getTitle(),f.getCreate(),f.getMember().getNickName()))
                 .collect(Collectors.toList());
 
         MyFavoriteExamResponse response = MyFavoriteExamResponse.builder()
