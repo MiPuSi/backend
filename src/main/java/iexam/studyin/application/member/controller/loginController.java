@@ -16,6 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class loginController {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<JwtResponse> login(LoginDto loginDto){
         log.info("input = {}",loginDto);
 
         try{

@@ -6,3 +6,5 @@ spring:
     include:
       - local
       - mail
+server:
+  port: 8000
