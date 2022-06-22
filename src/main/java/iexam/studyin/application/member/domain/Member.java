@@ -35,7 +35,7 @@ public class Member {
     @Column(name = "member_modify")
     private LocalDateTime modifyDate;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member")
     private List<Exam> exams = new ArrayList<>();
 
     @Builder
