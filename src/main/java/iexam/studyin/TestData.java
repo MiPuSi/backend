@@ -29,8 +29,10 @@ public class TestData {
 
         Member writer = Member.builder()
                 .creationDate(LocalDateTime.now())
+                .nickName("시험지작성한유저")
                 .email("abc22@abc.com")
                 .num("1234123")
+                .organization("한국대학교")
                 .password(passwordEncoder.encode("1234"))
                 .modifyDate(LocalDateTime.now())
                 .build();
@@ -39,7 +41,9 @@ public class TestData {
         Member tempMember = Member.builder()
                 .creationDate(LocalDateTime.now())
                 .email("abc@abc.com")
+                .nickName("시험지좋아하는유저")
                 .num("1234")
+                .organization("한국대학교")
                 .password(passwordEncoder.encode("1234"))
                 .modifyDate(LocalDateTime.now())
                 .build();

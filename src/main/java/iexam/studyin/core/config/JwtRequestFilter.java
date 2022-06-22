@@ -35,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         String username = null;
         String jwt = null;
-        if (!request.getRequestURI().equals("/api/login")) {
+        if (!request.getRequestURI().equals("/api/login") && !request.getRequestURI().equals("/api/home")) {
             if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer"))
                 throw new SignatureException("JWT does not match or found");
         }
