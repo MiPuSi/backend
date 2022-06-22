@@ -88,7 +88,7 @@ public class ExamService {
 
         OneExamDto oneExamDto = OneExamDto.builder()
                 .questions(qOrAS)
-                .like(0) // make like
+                .like(exam.getFavoriteList().size())
                 .num(exam.getMember().getNum())
                 .nickName(exam.getMember().getNickName())
                 .title(exam.getTitle())

@@ -1,9 +1,9 @@
-package iexam.studyin.application.exam.controller;
+package iexam.studyin.application.favorite.controller;
 
 import iexam.studyin.application.exam.domain.Exam;
-import iexam.studyin.application.exam.dto.FavoriteExamDto;
-import iexam.studyin.application.exam.dto.response.MyFavoriteExamResponse;
-import iexam.studyin.application.exam.service.FavoriteService;
+import iexam.studyin.application.favorite.controller.dto.FavoriteExamDto;
+import iexam.studyin.application.favorite.controller.dto.MyFavoriteExamResponse;
+import iexam.studyin.application.favorite.service.FavoriteService;
 import iexam.studyin.core.config.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,5 +50,4 @@ public class FavoriteController {
 
         return new ResponseEntity<>(response,response.getHttpStatus());
     }
-
 }

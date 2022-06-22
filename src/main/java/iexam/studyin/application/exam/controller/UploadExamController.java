@@ -39,7 +39,6 @@ public class UploadExamController {
     @GetMapping("/api/exam/{id}")
     public OneExamDto lookUpOne(@PathVariable Long examId) {
         OneExamDto oneExamDto = uploadExamService.findByExamId(examId);
-        
         return oneExamDto;
     }
 }

@@ -1,10 +1,10 @@
-package iexam.studyin.application.exam.service;
+package iexam.studyin.application.favorite.service;
 
 import iexam.studyin.application.exam.domain.Exam;
-import iexam.studyin.application.exam.domain.Favorite;
+import iexam.studyin.application.favorite.domain.Favorite;
 import iexam.studyin.application.exam.repository.ExamRepository;
 import iexam.studyin.application.member.domain.Member;
-import iexam.studyin.application.exam.repository.FavoriteRepository;
+import iexam.studyin.application.favorite.repository.FavoriteRepository;
 import iexam.studyin.application.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +34,8 @@ public class FavoriteService {
         Exam exam = byExam.get();
 
         Favorite favorite = new Favorite(member.getId(), exam.getId());
+        member.addFavorite(favorite);
+        exam.addFavorite(favorite);
 
         favoriteRepository.save(favorite);
     }

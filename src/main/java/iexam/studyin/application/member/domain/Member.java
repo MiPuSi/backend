@@ -1,6 +1,7 @@
 package iexam.studyin.application.member.domain;
 
 import iexam.studyin.application.exam.domain.Exam;
+import iexam.studyin.application.favorite.domain.Favorite;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,6 +42,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Exam> exams = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<Favorite> favorites = new ArrayList<>();
+
     @Builder
     public Member(String email, String password, String num, LocalDateTime creationDate, LocalDateTime modifyDate, String nickName) {
         this.email = email;
@@ -49,5 +53,9 @@ public class Member {
         this.creationDate = creationDate;
         this.modifyDate = modifyDate;
         this.nickName = nickName;
+    }
+
+    public void addFavorite(Favorite favorite) {
+        this.favorites.add(favorite);
     }
 }
