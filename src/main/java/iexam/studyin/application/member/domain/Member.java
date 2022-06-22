@@ -29,6 +29,9 @@ public class Member {
     @Column(name = "member_num")
     private String num;
 
+    @Column(name = "member_nick_name")
+    private String nickName;
+
     @Column(name = "member_create")
     private LocalDateTime creationDate;
 
@@ -39,11 +42,12 @@ public class Member {
     private List<Exam> exams = new ArrayList<>();
 
     @Builder
-    public Member(String email, String password, String num, LocalDateTime creationDate, LocalDateTime modifyDate) {
+    public Member(String email, String password, String num, LocalDateTime creationDate, LocalDateTime modifyDate, String nickName) {
         this.email = email;
         this.password = password;
         this.num = num;
         this.creationDate = creationDate;
         this.modifyDate = modifyDate;
+        this.nickName = nickName;
     }
 }
