@@ -1,5 +1,7 @@
 package iexam.studyin;
 
+import iexam.studyin.application.advice.domain.Advice;
+import iexam.studyin.application.advice.repository.AdviceRepository;
 import iexam.studyin.application.exam.domain.Exam;
 import iexam.studyin.application.exam.repository.ExamRepository;
 import iexam.studyin.application.member.domain.Member;
@@ -19,6 +21,7 @@ public class TestData {
     private final MemberRepository memberRepository;
     private final ExamRepository examRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final AdviceRepository adviceRepository;
 
     @PostConstruct
     @Transactional
@@ -52,5 +55,18 @@ public class TestData {
                     .build();
             examRepository.save(build);
         }
+
+        Advice advice = Advice.builder()
+                .content("글을 읽어도 성현을 보지 못한다면 지필(紙筆)의 종일 뿐이고 벼슬자리에 있어도 백성을 사랑하지 않는다면 관복 입은 도둑에 지나지 않는다. 학문을 하면서도 몸소 실천함을 숭상하지 않는다면 입으로만 참선하는 사람일 뿐이요, 큰일을 일으키고도 은덕을 심지 않는다면 눈앞에서 잠시 피다가 지는 꽃일 뿐이다.")
+                .adviser("-채근담")
+                .build();
+
+        Advice advice1 = Advice.builder()
+                .content("가장 유능한 사람은 가장 배우기 힘쓰는 사람이다.")
+                .adviser("-괴테")
+                .build();
+
+        adviceRepository.save(advice);
+        adviceRepository.save(advice1);
     }
 }
