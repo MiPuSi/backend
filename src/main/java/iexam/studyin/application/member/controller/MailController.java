@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -54,8 +56,7 @@ public class MailController {
     }
 
     @GetMapping("/test/test")
-    public ModelAndView redirectTest() {
-        String projectUrl = "redirect:http://localhost:8080/StudyIn/main.jsp?success=1";
-        return new ModelAndView("redirect:" + projectUrl);
+    public void redirectTest(HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.sendRedirect("http://localhost:8080/StudyIn/main.jsp?success=1");
     }
 }
