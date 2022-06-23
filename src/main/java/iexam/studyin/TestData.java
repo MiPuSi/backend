@@ -50,7 +50,7 @@ public class TestData {
         memberRepository.save(tempMember);
 
 
-        for(int i=0;i<5;i++){
+        for(int i=0;i<12;i++){
             Exam build = Exam.builder()
                     .create(LocalDateTime.now())
                     .modify(LocalDateTime.now())
@@ -58,6 +58,7 @@ public class TestData {
                     .title("문제" + i)
                     .build();
             examRepository.save(build);
+
         }
 
         Advice advice = Advice.builder()
