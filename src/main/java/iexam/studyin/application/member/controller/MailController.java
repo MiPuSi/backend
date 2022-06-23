@@ -10,17 +10,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 @Slf4j
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class MailController {
 
@@ -29,6 +28,7 @@ public class MailController {
     private final AddMemberValidation validation;
 
     @PostMapping("/api/member/email")
+    @ResponseBody
     public ResponseEntity signUp(@Valid MemberDto memberDto, BindingResult bindingResult) throws JsonProcessingException, MessagingException {
 
         validation.validate(memberDto, bindingResult);
@@ -50,5 +50,14 @@ public class MailController {
     @GetMapping("/api/member/signUpConfirm")
     public void authEmail(@ModelAttribute AuthEmailDto authEmailDto) throws JsonProcessingException {
         authKeyRepository.checkAuth(authEmailDto.getEmail(), authEmailDto.getAuthKey());
+    }
+
+    @GetMapping("/test/test")
+    public String redirectTest(Model model) {
+        model.addAttribute("name","호파");
+        model.addAttribute("local","seoul");
+        model.addAttribute("sex","m");
+        model.addAttribute("redirectUrl","http://localhost:8080/StudyIn/main.jsp?success=1");
+        return "redirect"; //view->redirect.jsp를 호출
     }
 }
