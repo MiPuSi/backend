@@ -26,6 +26,7 @@ public class FavoriteController {
     @PostMapping("/exam/{id}/favorite")
     public ResponseEntity<String> likeExam(@PathVariable("id") Long id,
                                            @AuthenticationPrincipal PrincipalDetails user){
+        if (user == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         favoriteService.favoriteExam(user.getUsername(),id);
 
         return ResponseEntity.ok("Ok");
