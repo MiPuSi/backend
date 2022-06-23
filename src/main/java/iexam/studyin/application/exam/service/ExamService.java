@@ -60,8 +60,8 @@ public class ExamService {
                     .answerText(questionDto.getAnswer())
                     .answerImage(answerImage)
                     .build();
-
-            exam.addQuestion(question);
+            question.addExam(exam);
+            //exam.addQuestion(question);
         }
 
         examRepository.save(exam);
@@ -73,6 +73,7 @@ public class ExamService {
         return member;
     }
 
+    @Transactional
     public OneExamDto findByExamId(Long examId) {
         Exam exam = examRepository.findById(examId)
                 .orElseThrow(RuntimeException::new);
