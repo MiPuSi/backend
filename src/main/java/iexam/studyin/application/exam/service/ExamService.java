@@ -19,9 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -109,6 +107,7 @@ public class ExamService {
         if (member.getExams() == null) return null;
         else {
             List<Exam> exams = member.getExams();
+            Collections.sort(exams, (o1, o2) -> o2.getCreate().compareTo(o1.getCreate()));
             List<FavoriteExamDto> examList = exams.stream()
                     .map(e -> new FavoriteExamDto(e.getId(), e.getTitle(), e.getCreate(), e.getMember().getNickName()))
                     .collect(Collectors.toList());
