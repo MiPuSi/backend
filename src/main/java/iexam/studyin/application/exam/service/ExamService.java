@@ -50,16 +50,15 @@ public class ExamService {
         List<QuestionDto> questionDtos = examDto.getQuestionDtos();
 
         for (QuestionDto questionDto : questionDtos) {
-            String questionImage = imageStore.storeFile(questionDto.getQuestionImage());
-            String answerImage = imageStore.storeFile(questionDto.getAnswerImage());
+//            String questionImage = imageStore.storeFile(questionDto.getQuestionImage());
+//            String answerImage = imageStore.storeFile(questionDto.getAnswerImage());
             Question question = Question.builder()
                     .questionText(questionDto.getQuestion())
-                    .questionImage(questionImage)
+                    .questionImage(questionDto.getQuestionImage())
                     .answerText(questionDto.getAnswer())
-                    .answerImage(answerImage)
+                    .answerImage(questionDto.getAnswerImage())
                     .build();
             question.addExam(exam);
-            //exam.addQuestion(question);
         }
 
         examRepository.save(exam);
