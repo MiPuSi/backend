@@ -51,12 +51,8 @@ public class MailController {
     }
 
     @GetMapping("/api/member/signUpConfirm")
-    public void authEmail(@ModelAttribute AuthEmailDto authEmailDto) throws JsonProcessingException {
+    public void authEmail(@ModelAttribute AuthEmailDto authEmailDto, HttpServletResponse httpServletResponse) throws IOException {
         authKeyRepository.checkAuth(authEmailDto.getEmail(), authEmailDto.getAuthKey());
-    }
-
-    @GetMapping("/test/test")
-    public void redirectTest(HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.sendRedirect("http://localhost:8080/StudyIn/main.jsp?success=1");
     }
 }
