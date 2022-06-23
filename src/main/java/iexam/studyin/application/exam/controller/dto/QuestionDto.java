@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter @Setter
 public class QuestionDto {
     private String question;
-    private MultipartFile questionImage;
+    private String questionImage;
     private String answer;
-    private MultipartFile answerImage;
+    private String answerImage;
 }

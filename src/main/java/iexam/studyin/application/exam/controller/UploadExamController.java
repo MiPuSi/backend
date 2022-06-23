@@ -27,10 +27,6 @@ public class UploadExamController {
     @PostMapping("/api/exam/upload")
     public ResponseEntity uploadExam(ExamDto examDto,
                                      @AuthenticationPrincipal PrincipalDetails principal) throws IOException {
-        List<QuestionDto> questionDtos = examDto.getQuestionDtos();
-        for (QuestionDto questionDto : questionDtos) {
-            System.out.println("questionDto.getQuestion() = " + questionDto.getQuestion());
-        }
         uploadExamService.upload(examDto, principal);
         return new ResponseEntity(HttpStatus.OK);
     }
