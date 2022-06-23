@@ -41,4 +41,9 @@ public class Question {
         this.answerText = answerText;
         this.answerImage = answerImage;
     }
+
+    public void addExam(Exam exam){
+        exam.getQuestions().add(this);
+        this.exam = exam;
+    }
 }
