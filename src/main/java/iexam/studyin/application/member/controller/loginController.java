@@ -28,7 +28,7 @@ public class loginController {
     private final PrincipalDetailsService principalDetailsService;
     private final JwtUtils jwtUtils;
 
-    @PostMapping("/login")
+    @PostMapping("/member/login")
     public ResponseEntity<JwtResponse> login(LoginDto loginDto){
         log.info("input = {}",loginDto);
 
@@ -44,7 +44,6 @@ public class loginController {
 
         JwtResponse jwtResponse = JwtResponse.builder()
                 .token(jwt)
-                .email(principalDetails.getUsername())
                 .build();
 
         return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
