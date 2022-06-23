@@ -28,7 +28,7 @@ public class MailController {
     private final MailSendService mss;
     private final AddMemberValidation validation;
 
-    @PostMapping("/member/signUp/email")
+    @PostMapping("/api/member/email")
     public ResponseEntity signUp(@Valid MemberDto memberDto, BindingResult bindingResult) throws JsonProcessingException, MessagingException {
 
         validation.validate(memberDto, bindingResult);
@@ -47,7 +47,7 @@ public class MailController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("member/signUpConfirm")
+    @GetMapping("/api/member/signUpConfirm")
     public void authEmail(@ModelAttribute AuthEmailDto authEmailDto) throws JsonProcessingException {
         authKeyRepository.checkAuth(authEmailDto.getEmail(), authEmailDto.getAuthKey());
     }

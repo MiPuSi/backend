@@ -6,5 +6,6 @@ spring:
     include:
       - local
       - mail
+#      - cloud
 server:
   port: 8000

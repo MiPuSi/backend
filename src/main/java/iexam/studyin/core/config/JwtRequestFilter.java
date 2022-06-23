@@ -13,6 +13,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -32,15 +33,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         log.info("DoFilterCall");
 
         String authorizationHeader = request.getHeader("Authorization");
-
         String username = null;
         String jwt = null;
-        if (!request.getRequestURI().equals("/api/login") && !request.getRequestURI().equals("/api/home")) {
+        if (!request.getRequestURI().equals("/api/member/login") && !request.getRequestURI().equals("/api/home")
+            && !request.getRequestURI().equals("/api/member/email") && !request.getRequestURI().equals("/api/member/signUpConfirm")) {
             if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer"))
                 throw new SignatureException("JWT does not match or found");
         }
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer+")) {
             log.info("jwtRequestFilterCall");
             jwt = authorizationHeader.substring(7);
             username = jwtUtil.extractUsername(jwt);
@@ -58,6 +59,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
+
         chain.doFilter(request, response);
     }
 
