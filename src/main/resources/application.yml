@@ -1,0 +1,10 @@
+spring:
+  redis:
+    host: localhost
+    port: 6379
+  profiles:
+    include:
+      - local
+      - mail
+server:
+  port: 8000
