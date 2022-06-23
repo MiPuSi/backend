@@ -34,6 +34,32 @@
   </details>
   
   
+# 주의
+
+application-local.yml
+```
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/study/h2/makeHere/jpashop
+    username: sa
+    password: 123
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+file:
+  dir: "로컬에서 이미지 파일이 저장될 경로를 지정해주세요"
+```
+  
+  
 # API 명세
 <li>인증은 HTTP 헤더의 JWT를 통해 이루어집니다.</li>
 
