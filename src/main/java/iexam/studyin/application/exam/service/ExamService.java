@@ -61,6 +61,7 @@ public class ExamService {
                     .answerImage(answerImage)
                     .build();
             question.addExam(exam);
+
             //exam.addQuestion(question);
         }
 
