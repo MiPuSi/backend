@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
@@ -53,11 +54,8 @@ public class MailController {
     }
 
     @GetMapping("/test/test")
-    public String redirectTest(Model model) {
-        model.addAttribute("name","호파");
-        model.addAttribute("local","seoul");
-        model.addAttribute("sex","m");
-        model.addAttribute("redirectUrl","http://localhost:8080/StudyIn/main.jsp?success=1");
-        return "redirect"; //view->redirect.jsp를 호출
+    public ModelAndView redirectTest() {
+        String projectUrl = "redirect:http://localhost:8080/StudyIn/main.jsp?success=1";
+        return new ModelAndView("redirect:" + projectUrl);
     }
 }
