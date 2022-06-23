@@ -33,6 +33,8 @@ public class HomeController {
         Advice advice = adviceService.randOne();
         homeDto.setAdvice(advice.getContent());
         homeDto.setAdviser(advice.getAdviser());
+        System.out.println("advice.getContent() = " + advice.getContent());
+        System.out.println("advice.getAdviser() = " + advice.getAdviser());
         return new ResponseEntity<>(homeDto, HttpStatus.OK);
     }
 }
