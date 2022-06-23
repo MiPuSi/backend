@@ -10,17 +10,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Slf4j
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class MailController {
 
@@ -29,6 +31,7 @@ public class MailController {
     private final AddMemberValidation validation;
 
     @PostMapping("/api/member/email")
+    @ResponseBody
     public ResponseEntity signUp(@Valid MemberDto memberDto, BindingResult bindingResult) throws JsonProcessingException, MessagingException {
 
         validation.validate(memberDto, bindingResult);
@@ -48,7 +51,8 @@ public class MailController {
     }
 
     @GetMapping("/api/member/signUpConfirm")
-    public void authEmail(@ModelAttribute AuthEmailDto authEmailDto) throws JsonProcessingException {
+    public void authEmail(@ModelAttribute AuthEmailDto authEmailDto, HttpServletResponse httpServletResponse) throws IOException {
         authKeyRepository.checkAuth(authEmailDto.getEmail(), authEmailDto.getAuthKey());
+        httpServletResponse.sendRedirect("http://localhost:8080/StudyIn/main.jsp?success=1");
     }
 }
