@@ -14,6 +14,7 @@
 - [프로젝트 목표 및 개요](#프로젝트-목표-및-개요)
 - [개발 및 배포환경](#개발-및-배포환경)
 - [주의](#주의)
+- [ER Diagram](#ER-Diagram)
 - [API 명세서](#API-명세서)
 - [유튜브 영상](#유튜브-영상)
 
@@ -42,8 +43,8 @@
 # 개발 및 배포환경
 
 <div align="center">
-<img width="60%" alt="스크린샷 2022-06-25 오전 12 15 02" src="https://user-images.githubusercontent.com/53372971/175765847-6d015ffc-1f92-43c0-b8aa-83c069dcc8cf.jpeg">
-  </div>
+  <img width="60%" alt="스크린샷 2022-06-25 오전 12 15 02" src="https://user-images.githubusercontent.com/53372971/175765847-6d015ffc-1f92-43c0-b8aa-83c069dcc8cf.jpeg">
+</div>
 
 - Infra
   - Naver Cloud(CentOS)
@@ -81,7 +82,13 @@ spring:
 file:
   dir: "로컬에서 이미지 파일이 저장될 경로를 지정해주세요"
 ```
-  
+
+# ER Diagram
+
+
+<div align="center">
+  <img width="80%" alt="스크린샷 2022-06-25 오전 12 15 02" src="https://user-images.githubusercontent.com/53372971/175766237-92a272ae-2fb2-40b8-a154-35174c4021b5.png">
+</div>
   
 # API 명세서
 <li>인증은 HTTP 헤더의 JWT를 통해 이루어집니다.</li>
@@ -109,6 +116,7 @@ file:
 
 # 유튜브 영상
 
+프로젝트 설명 및 시연
 https://www.youtube.com/watch?v=qU4zvYzuFiE
    
 
