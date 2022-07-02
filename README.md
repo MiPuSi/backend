@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://www.numble.it/b21bf666-045f-478e-8643-927417a448d2"><img src="https://user-images.githubusercontent.com/53372971/175765111-6e50046f-b608-4826-a4f6-66c88b1dbb9a.png" width="30%" alt="badge42 logo" ></a>
+  <img src="https://user-images.githubusercontent.com/53372971/175765111-6e50046f-b608-4826-a4f6-66c88b1dbb9a.png" width="30%" alt="badge42 logo" >
   <h1>StudyIn</h1>
   <p>🏆SW중심대학 공동해커톤🏆</p>
 </div>
